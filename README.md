@@ -92,5 +92,10 @@ Run timestamps & tags
 | MLflow App                                  | AWS EC2          | Remote tracking server |
 
 Screen shots:
+<img width="1212" height="103" alt="image" src="https://github.com/user-attachments/assets/8078e197-a78d-47d5-8d3f-b4bfed17d6db" />
+<img width="1352" height="409" alt="image" src="https://github.com/user-attachments/assets/061d17c3-a8ac-47d0-bb7d-9baad973fb5f" />
+<img width="1841" height="669" alt="image" src="https://github.com/user-attachments/assets/436ee676-4d93-4efd-af74-898419d43824" />
+<img width="1838" height="412" alt="image" src="https://github.com/user-attachments/assets/feef3165-aba2-4c44-a2bd-8bd5e5831939" />
+<img width="1867" height="687" alt="image" src="https://github.com/user-attachments/assets/4ec1a65a-93aa-4404-a72c-65eadca8a45c" />
 
 

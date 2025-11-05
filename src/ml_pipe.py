@@ -11,8 +11,10 @@ from mlflow import log_metric,log_param,set_tracking_uri,set_experiment,start_ru
 import sys 
 import urllib.parse
 
+os.environ["MLFLOW_TRACKING_URI"]="http://ec2-3-107-196-65.ap-southeast-2.compute.amazonaws.com:5000/"
+
 def load_and_preprocess(data_path):
-    data = pd.read_csv(data_path)
+    data = pd.read_csv(data_path,sep=";")
     # basic preprocessing steps
     data = data.dropna()
     return data
@@ -32,8 +34,8 @@ def train(model_path,data_path):
     x_train = scaler.fit_transform(x_train)
     y_train = scaler.fit_transform(y_train.values.reshape(-1,1))
     model.fit(x_train,y_train)
-    x_test = scaler.transform(x_test)
-    y_test = scaler.trasnform(y_test.values.reshape(-1,1))
+    x_test = scaler.fit_transform(x_test)
+    y_test = scaler.fit_transform(y_test.values.reshape(-1,1))
 
     y_pred = model.predict(x_test)
 
@@ -41,12 +43,11 @@ def train(model_path,data_path):
     rmse,mae,r2 = evaluate_model(y_test,y_pred)
 
     # mlflow connection to  AWS S3 bucket
-    set_tracking_uri("")
-    set_experiment("")
+    set_tracking_uri("http://ec2-3-107-196-65.ap-southeast-2.compute.amazonaws.com:5000/")
+    set_experiment("ElasticNet_Wine_Quality")
     # log into MLFlow
-    with start_run():
-
-        log_model(model,"model",signature=infer_signature(x_train,y_train),registered_model_name="ElasticNetRegressor")
+    with start_run(): 
+        #log_model(model,signature=infer_signature(x_train,y_train))
         log_param("alpha",0.5)
         log_param("l1_ratio",0.5)
         log_metric("rmse",rmse)
@@ -61,11 +62,11 @@ def train(model_path,data_path):
     remote_tracking_uri = ""
     set_tracking_uri(remote_tracking_uri)
     tracking_url_file_store = urllib.parse.urlparse(get_tracking_uri()).scheme
-    if tracking_url_file_store != "file":
-        log_model(model,"model",signature=infer_signature(x_train,y_train),registered_model_name="ElasticNetRegressor")
-    else:
-        log_model(model,"model")
-        
+    #if tracking_url_file_store != "file":
+    #    log_model(model,"model",signature=infer_signature(x_train,y_train),registered_model_name="ElasticNetRegressor")
+    #else:
+    #    log_model(model,"model")
+
 
 
     return model_save_path
@@ -81,7 +82,7 @@ def evaluate_model(true,pred):
     return rmse,mae,r2
 
 if __name__ == "__main__":
-    data_path = os.path.join("data","wine-quality.csv")
-    model_path = train("models",data_path)
+    data_path = "data/winequality-white.csv"
+    model_path = train("model",data_path)
     print(f"Trained model saved at {model_path}") 
 

@@ -6,40 +6,23 @@ Wine Quality Analysis & Prediction using Elastic Net Regression
 
 This repository presents a complete machine learning workflow for predicting wine quality based on physicochemical properties using the Elastic Net Regression model.
 
-The project emphasizes:
-
- Systematic ML experimentation
-
- Feature engineering & data preprocessing
-
- Model evaluation & hyperparameter tuning
-
- Production-style experiment tracking using MLflow
-
- Remote MLflow tracking server hosted on AWS EC2 instance
-
- Reproducible end-to-end pipelines
-
-This project demonstrates how real-world ML systems are built — where model experimentation, tracking, and reproducibility are critical.
+This project places strong emphasis on building a production-grade machine learning workflow that aligns with real-world industry standards. It incorporates systematic ML experimentation, where different model configurations, regularization strengths, and preprocessing strategies are rigorously tested and compared. The pipeline includes comprehensive feature engineering and data preprocessing, ensuring that input variables are clean, scaled, and meaningful for modeling. It implements thorough model evaluation and hyperparameter tuning to achieve optimal predictive performance and robustness. A key highlight is the production-style experiment tracking framework powered by MLflow, enabling structured logging of metrics, parameters, and model artifacts. The MLflow tracking server is deployed remotely on an AWS EC2 instance, with artifacts stored in Amazon S3, closely mirroring real-world MLOps deployment patterns used in enterprise environments. Overall, this project demonstrates how modern machine learning systems are developed, with a focus on traceability, scalability, reproducibility, and operational readiness—critical elements for delivering reliable and maintainable ML solutions in production.
 
 # Problem Statement
 
-The goal is to build a regression model that predicts wine quality score (0-10) using chemical characteristics such as acidity, sugar content, sulphates, alcohol, etc.
+The objective of this project is to develop a regression model capable of predicting the wine quality score (ranging from 0–10) based on a set of physicochemical attributes such as acidity, residual sugar, sulphates, alcohol percentage, and more. The widely-used Wine Quality Dataset from the UCI Machine Learning Repository is utilized for this study, providing a robust benchmark for evaluating model performance and experimentation. The workflow follows a structured machine learning approach, from exploratory data understanding to model training, tuning, and experiment management using MLflow.
 
-Dataset used: Wine Quality Dataset (UCI Repository)
+Key tasks include:
 
-Tasks:
+1. Conducting exploratory data analysis (EDA) to understand distribution patterns, correlations, and feature relationships
 
-Explore data through EDA
+2. Performing feature engineering and scaling to ensure high-quality model inputs
 
-Engineer and scale features
+3. Training an Elastic Net regression model, leveraging combined L1 + L2 regularization
 
-Build Elastic Net regression model
+4. Logging parameters, metrics, models, and artifacts using MLflow
 
-Log experiments to MLflow
-
-Evaluate and compare runs
-
+5. Evaluating and comparing ML experiments to select the best-performing configuration
 
 #  Why Elastic Net?
 
@@ -87,9 +70,9 @@ Run timestamps & tags
 # AWS storage and usage
 | Component                                   | Storage          | Purpose                |
 | ------------------------------------------- | ---------------- | ---------------------- |
-| Experiment Metadata (runs, params, metrics) | SQLite / AWS RDS | Persistent tracking DB |
-| Artifacts (model files, plots, conda.yaml)  | **Amazon S3**    | Scalable storage       |
-| MLflow App                                  | AWS EC2          | Remote tracking server |
+| Experiment Metadata (runs, params, metrics) | SQLite           | Persistent tracking DB |
+| Artifacts (model files, plots, conda.yaml)  | Amazon S3        | Scalable storage       |
+| MLflow App                                  | AWS EC2          | Remote Ubuntu Instance |
 
 Screen shots:
 <img width="1212" height="103" alt="image" src="https://github.com/user-attachments/assets/8078e197-a78d-47d5-8d3f-b4bfed17d6db" />
